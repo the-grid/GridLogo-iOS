@@ -19,7 +19,7 @@ extension CGPoint {
     }
 }
 
-class Logo: UIView {
+class GridLogo: UIView {
     
     var mystic: CGFloat = 4
     var turns = 9
