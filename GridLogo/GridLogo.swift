@@ -121,7 +121,7 @@ class GridLogo: UIView {
         shapeLayer.path = logoPath.CGPath
         shapeLayer.strokeColor = strokeColor.CGColor
         shapeLayer.fillColor = nil
-//        shapeLayer.lineWidth = lineWidth
+//        shapeLayer.lineWidth = lineWidth // removed per leigh to go 1 px
         shapeLayer.lineWidth = 1 // per leigh
         shapeLayer.lineJoin = lineJoin
         return shapeLayer
