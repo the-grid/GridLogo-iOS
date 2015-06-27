@@ -11,6 +11,7 @@
 		01F378131B3F13DA0028211B /* GridLogo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01F378071B3F13DA0028211B /* GridLogo.framework */; };
 		01F3781A1B3F13DA0028211B /* GridLogoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F378191B3F13DA0028211B /* GridLogoTests.swift */; };
 		01F378241B3F14300028211B /* GridLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F378231B3F14300028211B /* GridLogo.swift */; };
+		01F3788C1B3F6E470028211B /* GridAnimatedLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F3788B1B3F6E470028211B /* GridAnimatedLogo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		01F378181B3F13DA0028211B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01F378191B3F13DA0028211B /* GridLogoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLogoTests.swift; sourceTree = "<group>"; };
 		01F378231B3F14300028211B /* GridLogo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLogo.swift; sourceTree = "<group>"; };
+		01F3788B1B3F6E470028211B /* GridAnimatedLogo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridAnimatedLogo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				01F378231B3F14300028211B /* GridLogo.swift */,
+				01F3788A1B3F69A40028211B /* Core */,
 				01F3780A1B3F13DA0028211B /* Supporting Files */,
 			);
 			name = Source;
@@ -104,6 +107,14 @@
 				01F378181B3F13DA0028211B /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		01F3788A1B3F69A40028211B /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				01F3788B1B3F6E470028211B /* GridAnimatedLogo.swift */,
+			);
+			name = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,6 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01F378241B3F14300028211B /* GridLogo.swift in Sources */,
+				01F3788C1B3F6E470028211B /* GridAnimatedLogo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
