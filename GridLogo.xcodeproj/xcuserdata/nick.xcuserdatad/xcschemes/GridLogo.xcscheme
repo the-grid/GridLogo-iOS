@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "01D5B1981B3EDC6F0041423C"
+               BlueprintIdentifier = "01F378061B3F13DA0028211B"
                BuildableName = "GridLogo.framework"
                BlueprintName = "GridLogo"
                ReferencedContainer = "container:GridLogo.xcodeproj">
@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "01D5B1A31B3EDC6F0041423C"
+               BlueprintIdentifier = "01F378111B3F13DA0028211B"
                BuildableName = "GridLogoTests.xctest"
                BlueprintName = "GridLogoTests"
                ReferencedContainer = "container:GridLogo.xcodeproj">
@@ -46,7 +46,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "01D5B1A31B3EDC6F0041423C"
+               BlueprintIdentifier = "01F378111B3F13DA0028211B"
                BuildableName = "GridLogoTests.xctest"
                BlueprintName = "GridLogoTests"
                ReferencedContainer = "container:GridLogo.xcodeproj">
@@ -56,7 +56,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "01D5B1981B3EDC6F0041423C"
+            BlueprintIdentifier = "01F378061B3F13DA0028211B"
             BuildableName = "GridLogo.framework"
             BlueprintName = "GridLogo"
             ReferencedContainer = "container:GridLogo.xcodeproj">
@@ -75,7 +75,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "01D5B1981B3EDC6F0041423C"
+            BlueprintIdentifier = "01F378061B3F13DA0028211B"
             BuildableName = "GridLogo.framework"
             BlueprintName = "GridLogo"
             ReferencedContainer = "container:GridLogo.xcodeproj">
@@ -93,7 +93,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "01D5B1981B3EDC6F0041423C"
+            BlueprintIdentifier = "01F378061B3F13DA0028211B"
             BuildableName = "GridLogo.framework"
             BlueprintName = "GridLogo"
             ReferencedContainer = "container:GridLogo.xcodeproj">
