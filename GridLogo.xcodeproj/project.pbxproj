@@ -55,7 +55,7 @@
 		01F377FD1B3F13DA0028211B = {
 			isa = PBXGroup;
 			children = (
-				01F378091B3F13DA0028211B /* GridLogo */,
+				01F378091B3F13DA0028211B /* Source */,
 				01F378161B3F13DA0028211B /* GridLogoTests */,
 				01F378081B3F13DA0028211B /* Products */,
 			);
@@ -70,19 +70,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		01F378091B3F13DA0028211B /* GridLogo */ = {
+		01F378091B3F13DA0028211B /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				01F3780C1B3F13DA0028211B /* GridLogo.h */,
 				01F378231B3F14300028211B /* GridLogo.swift */,
 				01F3780A1B3F13DA0028211B /* Supporting Files */,
 			);
+			name = Source;
 			path = GridLogo;
 			sourceTree = "<group>";
 		};
 		01F3780A1B3F13DA0028211B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				01F3780C1B3F13DA0028211B /* GridLogo.h */,
 				01F3780B1B3F13DA0028211B /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -301,7 +302,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -327,7 +328,9 @@
 		01F3781E1B3F13DA0028211B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -344,7 +347,9 @@
 		01F3781F1B3F13DA0028211B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
