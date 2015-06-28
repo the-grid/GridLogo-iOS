@@ -31,7 +31,7 @@ public class AnimatedGridLogo: UIView {
         
     }
     
-    convenience init(mystic: CGFloat) {
+    public convenience init(mystic: CGFloat) {
         self.init(frame: CGRectZero)
         self.alpha = 0
         self.mystic = mystic
