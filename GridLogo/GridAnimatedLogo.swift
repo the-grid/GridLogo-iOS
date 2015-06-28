@@ -92,14 +92,14 @@ public class AnimatedGridLogo: UIView {
         pathAnimation.repeatCount = 5
     }
     
-    func show() {
+    public func show() {
         UIView.animateWithDuration(0.5, animations: {
             self.alpha = 1
             }, completion: { complete in
                 self.startAnimation()
         })
     }
-    func hide() {
+    public func hide() {
         UIView.animateWithDuration(0.5, animations: {
             self.alpha = 0
             }, completion: { complete in
