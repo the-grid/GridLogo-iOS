@@ -29,7 +29,7 @@ public class AnimatedGridLogo: UIView {
     private var startPos: CGFloat = 0.0
     private var endPos: CGFloat = 1.0
     private var reverses = true
-    private var repeatCount: CGFloat = 5.0
+    private var repeatCount: Float = 5.0
     private var lineWidth: CGFloat?
 
     override init(frame: CGRect) {
@@ -100,11 +100,11 @@ public class AnimatedGridLogo: UIView {
             self.layer.addSublayer(fgLayer)
         }
         pathAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        pathAnimation.duration = 3.0
-        pathAnimation.fromValue = 0
-        pathAnimation.toValue = 1
-        pathAnimation.autoreverses = true
-        pathAnimation.repeatCount = 5
+        pathAnimation.duration = self.duration
+        pathAnimation.fromValue = self.startPos
+        pathAnimation.toValue = self.endPos
+        pathAnimation.autoreverses = self.reverses
+        pathAnimation.repeatCount = self.repeatCount
     }
     
     public func show() {
