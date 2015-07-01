@@ -23,23 +23,33 @@ public class AnimatedGridLogo: UIView {
     
     weak var bgLayer: CAShapeLayer?
     weak var fgLayer: CAShapeLayer?
-    
     var pathAnimation: CABasicAnimation!
     
+    private var duration: CFTimeInterval = 3.0
+    private var startPos: CGFloat = 0.0
+    private var endPos: CGFloat = 1.0
+    private var reverses = true
+    private var repeatCount: CGFloat = 5.0
+    private var lineWidth: CGFloat?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
     }
     
-    public convenience init(mystic: CGFloat) {
+    public convenience init(mystic: CGFloat, duration: CFTimeInterval, lineWidth: CGFloat?) {
         self.init(frame: CGRectZero)
-        self.alpha = 0
         self.mystic = mystic
-        self.md = CGFloat(mystic * mystic)
-        self.strokeRatio = CGFloat(md) / CGFloat(mystic)
-        self.userInteractionEnabled = false
-        addBackground()
-        setupAnimation()
+        self.duration = duration
+        self.repeatCount = 1
+        self.reverses = false
+        setup()
+    }
+    
+    public convenience init(mystic: CGFloat, lineWidth: CGFloat?) {
+        self.init(frame: CGRectZero)
+        self.mystic = mystic
+        setup()
     }
     
     required public init(coder aDecoder: NSCoder) {
@@ -48,6 +58,15 @@ public class AnimatedGridLogo: UIView {
     
     public override func didMoveToSuperview() {
         super.didMoveToSuperview()
+    }
+    
+    func setup() {
+        self.alpha = 0
+        self.md = CGFloat(mystic * mystic)
+        self.strokeRatio = CGFloat(md) / CGFloat(mystic)
+        self.userInteractionEnabled = false
+        addBackground()
+        setupAnimation()
     }
     
     var logoPath: UIBezierPath {
@@ -68,12 +87,6 @@ public class AnimatedGridLogo: UIView {
                 path.addLineToPoint(curr)
                 last  = curr
             }
-            /*
-            var pathRect = path.bounds
-            var pos = CGAffineTransformMakeTranslation(abs(path.bounds.origin.x), abs(path.bounds.origin.y))
-            path.applyTransform(pos)
-            */
-            
             return path
         }
     }
@@ -81,7 +94,7 @@ public class AnimatedGridLogo: UIView {
     func setupAnimation() {
         if fgLayer == nil {
             
-            fgLayer = shapeLayerWithLogoPath(UIColor(red: 1, green: 246/255, blue: 153/255, alpha: 1), lineWidth: strokeRatio, lineJoin: kCALineJoinMiter)
+            fgLayer = shapeLayerWithLogoPath(UIColor(red: 1, green: 246/255, blue: 153/255, alpha: 1), lineJoin: kCALineJoinMiter)
             self.layer.addSublayer(fgLayer)
         }
         pathAnimation = CABasicAnimation(keyPath: "strokeEnd")
@@ -116,20 +129,23 @@ public class AnimatedGridLogo: UIView {
         self.fgLayer?.removeAllAnimations()
     }
     
-    func shapeLayerWithLogoPath(strokeColor: UIColor, lineWidth: CGFloat, lineJoin: String) -> CAShapeLayer {
+    func shapeLayerWithLogoPath(strokeColor: UIColor, lineJoin: String) -> CAShapeLayer {
         var shapeLayer = CAShapeLayer()
         shapeLayer.path = logoPath.CGPath
         shapeLayer.strokeColor = strokeColor.CGColor
         shapeLayer.fillColor = nil
-        //        shapeLayer.lineWidth = lineWidth // removed per leigh to go 1 px
-        shapeLayer.lineWidth = 1 // per leigh
+        if lineWidth == nil {
+            shapeLayer.lineWidth = self.strokeRatio
+        } else {
+            shapeLayer.lineWidth = self.lineWidth!
+        }
         shapeLayer.lineJoin = lineJoin
         return shapeLayer
     }
     
     func addBackground() {
         if bgLayer == nil {
-            bgLayer = shapeLayerWithLogoPath(UIColor(red: 51/255, green: 51/255, blue: 48/255, alpha: 1), lineWidth: strokeRatio, lineJoin: kCALineJoinMiter)
+            bgLayer = shapeLayerWithLogoPath(UIColor(red: 51/255, green: 51/255, blue: 48/255, alpha: 1), lineJoin: kCALineJoinMiter)
             self.layer.addSublayer(bgLayer)
         }
     }
