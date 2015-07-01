@@ -43,12 +43,14 @@ public class AnimatedGridLogo: UIView {
         self.duration = duration
         self.repeatCount = 1
         self.reverses = false
+        self.lineWidth = lineWidth
         setup()
     }
     
     public convenience init(mystic: CGFloat, lineWidth: CGFloat?) {
         self.init(frame: CGRectZero)
         self.mystic = mystic
+        self.lineWidth = lineWidth
         setup()
     }
     
