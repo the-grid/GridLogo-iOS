@@ -96,8 +96,9 @@ public class AnimatedGridLogo: UIView {
     func setupAnimation() {
         if fgLayer == nil {
             
-            fgLayer = shapeLayerWithLogoPath(UIColor(red: 1, green: 246/255, blue: 153/255, alpha: 1), lineJoin: kCALineJoinMiter)
-            self.layer.addSublayer(fgLayer)
+            let foreground = shapeLayerWithLogoPath(UIColor(red: 1, green: 246/255, blue: 153/255, alpha: 1), lineJoin: kCALineJoinMiter)
+            self.fgLayer = foreground
+            self.layer.addSublayer(foreground)
         }
         pathAnimation = CABasicAnimation(keyPath: "strokeEnd")
         pathAnimation.duration = self.duration
@@ -147,8 +148,9 @@ public class AnimatedGridLogo: UIView {
     
     func addBackground() {
         if bgLayer == nil {
-            bgLayer = shapeLayerWithLogoPath(UIColor(red: 51/255, green: 51/255, blue: 48/255, alpha: 1), lineJoin: kCALineJoinMiter)
-            self.layer.addSublayer(bgLayer)
+            let background = shapeLayerWithLogoPath(UIColor(red: 51/255, green: 51/255, blue: 48/255, alpha: 1), lineJoin: kCALineJoinMiter)
+            self.bgLayer = background
+            self.layer.addSublayer(background)
         }
     }
     
