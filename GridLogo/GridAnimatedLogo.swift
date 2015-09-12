@@ -54,7 +54,7 @@ public class AnimatedGridLogo: UIView {
         setup()
     }
     
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -73,9 +73,9 @@ public class AnimatedGridLogo: UIView {
     
     var logoPath: UIBezierPath {
         get{
-            self.curr = CGPoint.zeroPoint
-            self.last = CGPoint.zeroPoint
-            var path = UIBezierPath()
+            self.curr = CGPoint.zero
+            self.last = CGPoint.zero
+            let path = UIBezierPath()
             path.moveToPoint(curr)
             
             for var i=0; i < turns; i++ {
@@ -132,7 +132,7 @@ public class AnimatedGridLogo: UIView {
     }
     
     func shapeLayerWithLogoPath(strokeColor: UIColor, lineJoin: String) -> CAShapeLayer {
-        var shapeLayer = CAShapeLayer()
+        let shapeLayer = CAShapeLayer()
         shapeLayer.path = logoPath.CGPath
         shapeLayer.strokeColor = strokeColor.CGColor
         shapeLayer.fillColor = nil
