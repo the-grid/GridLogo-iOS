@@ -54,7 +54,7 @@ public class AnimatedGridLogo: UIView {
         setup()
     }
     
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -73,9 +73,9 @@ public class AnimatedGridLogo: UIView {
     
     var logoPath: UIBezierPath {
         get{
-            self.curr = CGPoint.zeroPoint
-            self.last = CGPoint.zeroPoint
-            var path = UIBezierPath()
+            self.curr = CGPoint.zero
+            self.last = CGPoint.zero
+            let path = UIBezierPath()
             path.moveToPoint(curr)
             
             for var i=0; i < turns; i++ {
@@ -96,8 +96,9 @@ public class AnimatedGridLogo: UIView {
     func setupAnimation() {
         if fgLayer == nil {
             
-            fgLayer = shapeLayerWithLogoPath(UIColor(red: 1, green: 246/255, blue: 153/255, alpha: 1), lineJoin: kCALineJoinMiter)
-            self.layer.addSublayer(fgLayer)
+            let foreground = shapeLayerWithLogoPath(UIColor(red: 1, green: 246/255, blue: 153/255, alpha: 1), lineJoin: kCALineJoinMiter)
+            self.fgLayer = foreground
+            self.layer.addSublayer(foreground)
         }
         pathAnimation = CABasicAnimation(keyPath: "strokeEnd")
         pathAnimation.duration = self.duration
@@ -132,7 +133,7 @@ public class AnimatedGridLogo: UIView {
     }
     
     func shapeLayerWithLogoPath(strokeColor: UIColor, lineJoin: String) -> CAShapeLayer {
-        var shapeLayer = CAShapeLayer()
+        let shapeLayer = CAShapeLayer()
         shapeLayer.path = logoPath.CGPath
         shapeLayer.strokeColor = strokeColor.CGColor
         shapeLayer.fillColor = nil
@@ -147,8 +148,9 @@ public class AnimatedGridLogo: UIView {
     
     func addBackground() {
         if bgLayer == nil {
-            bgLayer = shapeLayerWithLogoPath(UIColor(red: 51/255, green: 51/255, blue: 48/255, alpha: 1), lineJoin: kCALineJoinMiter)
-            self.layer.addSublayer(bgLayer)
+            let background = shapeLayerWithLogoPath(UIColor(red: 51/255, green: 51/255, blue: 48/255, alpha: 1), lineJoin: kCALineJoinMiter)
+            self.bgLayer = background
+            self.layer.addSublayer(background)
         }
     }
     
