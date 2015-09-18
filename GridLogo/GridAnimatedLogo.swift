@@ -23,15 +23,17 @@ public class AnimatedGridLogo: UIView {
     
     weak var bgLayer: CAShapeLayer?
     weak var fgLayer: CAShapeLayer?
-    var pathAnimation: CABasicAnimation!
+    var pathAnimationIn: CABasicAnimation!
+    var pathAnimationOut: CABasicAnimation!
+    var pathAnimationGroup: CAAnimationGroup!
     
-    private var duration: CFTimeInterval = 3.0
+    private var duration: CFTimeInterval = 5.0
     private var startPos: CGFloat = 0.0
     private var endPos: CGFloat = 1.0
-    private var reverses = true
-    private var repeatCount: Float = 5.0
+    private var reverses = false
+    private var repeatCount: Float = 15.0
     private var lineWidth: CGFloat?
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -100,12 +102,25 @@ public class AnimatedGridLogo: UIView {
             self.fgLayer = foreground
             self.layer.addSublayer(foreground)
         }
-        pathAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        pathAnimation.duration = self.duration
-        pathAnimation.fromValue = self.startPos
-        pathAnimation.toValue = self.endPos
-        pathAnimation.autoreverses = self.reverses
-        pathAnimation.repeatCount = self.repeatCount
+        pathAnimationIn = CABasicAnimation(keyPath: "strokeEnd")
+        pathAnimationIn.fromValue = self.startPos
+        pathAnimationIn.toValue = self.endPos
+        pathAnimationIn.duration = self.duration / 2
+        pathAnimationIn.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        
+        pathAnimationOut = CABasicAnimation(keyPath: "strokeStart")
+        pathAnimationOut.fromValue = self.startPos
+        pathAnimationOut.toValue = self.endPos
+        pathAnimationOut.duration = self.duration / 2
+        pathAnimationOut.beginTime = self.duration / 2
+        pathAnimationOut.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        
+        pathAnimationGroup = CAAnimationGroup()
+        pathAnimationGroup.animations = [pathAnimationIn, pathAnimationOut]
+        pathAnimationGroup.duration = self.duration
+        pathAnimationGroup.repeatCount = self.repeatCount
+        pathAnimationGroup.removedOnCompletion = false
+        pathAnimationGroup.fillMode = kCAFillModeBackwards
     }
     
     public func show() {
@@ -115,6 +130,7 @@ public class AnimatedGridLogo: UIView {
                 self.startAnimation()
         })
     }
+    
     public func hide() {
         UIView.animateWithDuration(0.5, animations: {
             self.alpha = 0
@@ -125,7 +141,7 @@ public class AnimatedGridLogo: UIView {
     
     func startAnimation() {
         self.fgLayer?.removeAllAnimations()
-        self.fgLayer?.addAnimation(pathAnimation, forKey: "strokeEnd")
+        self.fgLayer?.addAnimation(pathAnimationGroup, forKey: "group")
     }
     
     func endAnimation() {
