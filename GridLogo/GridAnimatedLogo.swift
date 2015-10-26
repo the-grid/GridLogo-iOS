@@ -31,7 +31,7 @@ public class AnimatedGridLogo: UIView {
     private var startPos: CGFloat = 0.0
     private var endPos: CGFloat = 1.0
     private var reverses = false
-    private var repeatCount: Float = 15.0
+    private var repeatCount: Float = 14.5
     private var lineWidth: CGFloat?
     
     override init(frame: CGRect) {
