@@ -126,8 +126,8 @@ public class AnimatedGridLogo: UIView {
     public func show(completionHandler: (() -> Void)? = nil) {
         UIView.animateWithDuration(0.5, animations: {
             self.alpha = 1
-        }, completion: { _ in
             self.startAnimation()
+        }, completion: { _ in
             completionHandler?()
         })
     }
