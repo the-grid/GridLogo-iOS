@@ -123,19 +123,21 @@ public class AnimatedGridLogo: UIView {
         pathAnimationGroup.fillMode = kCAFillModeBackwards
     }
     
-    public func show() {
+    public func show(completionHandler: (() -> Void)? = nil) {
         UIView.animateWithDuration(0.5, animations: {
             self.alpha = 1
-            }, completion: { complete in
-                self.startAnimation()
+        }, completion: { _ in
+            self.startAnimation()
+            completionHandler?()
         })
     }
     
-    public func hide() {
+    public func hide(completionHandler: (() -> Void)? = nil) {
         UIView.animateWithDuration(0.5, animations: {
             self.alpha = 0
-            }, completion: { complete in
-                self.endAnimation()
+        }, completion: { _ in
+            self.endAnimation()
+            completionHandler?()
         })
     }
     
