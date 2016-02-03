@@ -34,9 +34,26 @@ public class AnimatedGridLogo: UIView {
     private var repeatCount: Float = 14.5
     private var lineWidth: CGFloat?
     
+    private let fadeDuration = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
+    
+    let fadeInAnimation: CABasicAnimation = {
+        let animation = CABasicAnimation(keyPath: "opacity")
+        animation.duration = 0.5
+        animation.fillMode = kCAFillModeForwards;
+        animation.fromValue = 0
+        return animation
+    }()
+    
+    let fadeOutAnimation: CABasicAnimation = {
+        let animation = CABasicAnimation(keyPath: "opacity")
+        animation.duration = 0.5
+        animation.fillMode = kCAFillModeForwards;
+        animation.fromValue = 1
+        return animation
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
     }
     
     public convenience init(mystic: CGFloat, duration: CFTimeInterval, lineWidth: CGFloat?) {
@@ -65,7 +82,6 @@ public class AnimatedGridLogo: UIView {
     }
     
     func setup() {
-        self.alpha = 0
         self.md = CGFloat(mystic * mystic)
         self.strokeRatio = CGFloat(md) / CGFloat(mystic)
         self.userInteractionEnabled = false
@@ -124,21 +140,30 @@ public class AnimatedGridLogo: UIView {
     }
     
     public func show(completionHandler: (() -> Void)? = nil) {
-        UIView.animateWithDuration(0.5, animations: {
-            self.alpha = 1
-            self.startAnimation()
-        }, completion: { _ in
+        self.startAnimation()
+        
+        self.fgLayer?.opacity = 1
+        self.bgLayer?.opacity = 1
+        
+        self.fgLayer?.addAnimation(self.fadeInAnimation, forKey: "fade")
+        self.bgLayer?.addAnimation(self.fadeInAnimation, forKey: "fade")
+        
+        dispatch_after(self.fadeDuration, dispatch_get_main_queue()) {
             completionHandler?()
-        })
+        }
     }
     
     public func hide(completionHandler: (() -> Void)? = nil) {
-        UIView.animateWithDuration(0.5, animations: {
-            self.alpha = 0
-        }, completion: { _ in
-            self.endAnimation()
+        self.fgLayer?.opacity = 0
+        self.bgLayer?.opacity = 0
+        
+        self.fgLayer?.addAnimation(self.fadeOutAnimation, forKey: "fade")
+        self.bgLayer?.addAnimation(self.fadeOutAnimation, forKey: "fade")
+        
+        dispatch_after(self.fadeDuration, dispatch_get_main_queue()) {
+            self.fgLayer?.removeAllAnimations()
             completionHandler?()
-        })
+        }
     }
     
     func startAnimation() {
