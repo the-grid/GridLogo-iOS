@@ -96,7 +96,7 @@ public class AnimatedGridLogo: UIView {
             let path = UIBezierPath()
             path.moveToPoint(curr)
             
-            for var i=0; i < turns; i++ {
+            for i in 0 ..< turns {
                 scalestep = round((CGFloat(i) + 1) / 2.0) * CGFloat(md)
                 curr = CGPoint(x: CGFloat(last.x) + (scalestep * CGFloat(xstep[i % 4])), y: CGFloat(last.y) + (scalestep * CGFloat(ystep[i % 4]))).toInt()
                 
