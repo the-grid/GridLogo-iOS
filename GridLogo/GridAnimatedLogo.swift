@@ -8,7 +8,19 @@
 
 import UIKit
 
-public class AnimatedGridLogo: UIView {
+extension CGSize {
+    func toInt() -> CGSize {
+        return CGSize(width: round(self.width), height: round(self.height))
+    }
+}
+
+extension CGPoint {
+    func toInt() -> CGPoint {
+        return CGPoint(x: round(self.x), y: round(self.y))
+    }
+}
+
+public class GridLogo: UIView {
     
     var mystic: CGFloat = 4
     var turns = 9
@@ -52,43 +64,22 @@ public class AnimatedGridLogo: UIView {
         return animation
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    public convenience init(mystic: CGFloat, duration: CFTimeInterval, lineWidth: CGFloat?) {
-        self.init(frame: CGRectZero)
-        self.mystic = mystic
-        self.duration = duration
-        self.repeatCount = 1
-        self.reverses = false
-        self.lineWidth = lineWidth
-        setup()
-    }
-    
-    public convenience init(mystic: CGFloat, lineWidth: CGFloat?) {
-        self.init(frame: CGRectZero)
-        self.mystic = mystic
-        self.lineWidth = lineWidth
-        setup()
+    public init(mystic m: CGFloat, duration d: CFTimeInterval, lineWidth lw: CGFloat = 1, bgColor: UIColor = UIColor(red: 51/255, green: 51/255, blue: 48/255, alpha: 1), fgColor: UIColor = UIColor(red: 1, green: 246/255, blue: 153/255, alpha: 1)) {
+        super.init(frame: CGRectZero)
+        mystic = m
+        duration = d
+        lineWidth = lw
+        md = m
+        strokeRatio = CGFloat(md) / CGFloat(mystic)
+        userInteractionEnabled = false
+        addBackground(bgColor)
+        setupAnimation(fgColor)
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    public override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-    }
-    
-    func setup() {
-        self.md = CGFloat(mystic * mystic)
-        self.strokeRatio = CGFloat(md) / CGFloat(mystic)
-        self.userInteractionEnabled = false
-        addBackground()
-        setupAnimation()
-    }
-    
+
     var logoPath: UIBezierPath {
         get{
             self.curr = CGPoint.zero
@@ -111,10 +102,10 @@ public class AnimatedGridLogo: UIView {
         }
     }
     
-    func setupAnimation() {
+    func setupAnimation(color: UIColor) {
         if fgLayer == nil {
             
-            let foreground = shapeLayerWithLogoPath(UIColor(red: 1, green: 246/255, blue: 153/255, alpha: 1), lineJoin: kCALineJoinMiter)
+            let foreground = shapeLayerWithLogoPath(color, lineJoin: kCALineJoinMiter)
             self.fgLayer = foreground
             self.layer.addSublayer(foreground)
         }
@@ -189,9 +180,9 @@ public class AnimatedGridLogo: UIView {
         return shapeLayer
     }
     
-    func addBackground() {
+    func addBackground(color: UIColor) {
         if bgLayer == nil {
-            let background = shapeLayerWithLogoPath(UIColor(red: 51/255, green: 51/255, blue: 48/255, alpha: 1), lineJoin: kCALineJoinMiter)
+            let background = shapeLayerWithLogoPath(color, lineJoin: kCALineJoinMiter)
             self.bgLayer = background
             self.layer.addSublayer(background)
         }
