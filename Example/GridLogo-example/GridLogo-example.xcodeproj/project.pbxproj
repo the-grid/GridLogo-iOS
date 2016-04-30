@@ -7,15 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		766EF3951CD4C08F00473CEA /* GridLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766EF3941CD4C08F00473CEA /* GridLogo.swift */; };
 		76D9B92D1CD47391001A8ADF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D9B92C1CD47391001A8ADF /* AppDelegate.swift */; };
 		76D9B92F1CD47391001A8ADF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D9B92E1CD47391001A8ADF /* ViewController.swift */; };
 		76D9B9321CD47391001A8ADF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D9B9301CD47391001A8ADF /* Main.storyboard */; };
 		76D9B9341CD47391001A8ADF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76D9B9331CD47391001A8ADF /* Assets.xcassets */; };
 		76D9B9371CD47391001A8ADF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76D9B9351CD47391001A8ADF /* LaunchScreen.storyboard */; };
-		76D9B9421CD4747E001A8ADF /* GridAnimatedLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D9B93F1CD4747E001A8ADF /* GridAnimatedLogo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		766EF3941CD4C08F00473CEA /* GridLogo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLogo.swift; sourceTree = "<group>"; };
 		76D9B9291CD47391001A8ADF /* GridLogo-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GridLogo-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		76D9B92C1CD47391001A8ADF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76D9B92E1CD47391001A8ADF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -23,7 +24,6 @@
 		76D9B9331CD47391001A8ADF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		76D9B9361CD47391001A8ADF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		76D9B9381CD47391001A8ADF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		76D9B93F1CD4747E001A8ADF /* GridAnimatedLogo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridAnimatedLogo.swift; sourceTree = "<group>"; };
 		76D9B9401CD4747E001A8ADF /* GridLogo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridLogo.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,8 +71,8 @@
 		76D9B93E1CD4739E001A8ADF /* GridLogo */ = {
 			isa = PBXGroup;
 			children = (
-				76D9B93F1CD4747E001A8ADF /* GridAnimatedLogo.swift */,
 				76D9B9401CD4747E001A8ADF /* GridLogo.h */,
+				766EF3941CD4C08F00473CEA /* GridLogo.swift */,
 			);
 			name = GridLogo;
 			path = ../../GridLogo;
@@ -149,9 +149,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				766EF3951CD4C08F00473CEA /* GridLogo.swift in Sources */,
 				76D9B92F1CD47391001A8ADF /* ViewController.swift in Sources */,
 				76D9B92D1CD47391001A8ADF /* AppDelegate.swift in Sources */,
-				76D9B9421CD4747E001A8ADF /* GridAnimatedLogo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +303,7 @@
 				76D9B93D1CD47391001A8ADF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

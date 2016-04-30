@@ -1,5 +1,5 @@
 //
-//  GridAnimatedLogo.swift
+//  GridLogo.swift
 //  GridLogo
 //
 //  Created by Nicholas Velloff on 6/27/15.
