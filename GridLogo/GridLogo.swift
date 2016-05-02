@@ -28,12 +28,9 @@ public class GridLogo: UIView {
             for i in 0 ..< turns {
                 scalestep = round((CGFloat(i) + 1) / 2.0) * CGFloat(size)
                 curr = CGPoint(x: CGFloat(last.x) + (scalestep * CGFloat(xstep[i % 4])), y: CGFloat(last.y) + (scalestep * CGFloat(ystep[i % 4])))
-                
-                
                 if i + 1 == turns {
                     curr = CGPoint(x: CGFloat(curr.x) - (size * CGFloat(xstep[i % 4])), y: CGFloat(curr.y) - (size * CGFloat(ystep[i % 4])))
                 }
-                print("curr: \(curr)")
                 path.addLineToPoint(curr)
                 last  = curr
             }
