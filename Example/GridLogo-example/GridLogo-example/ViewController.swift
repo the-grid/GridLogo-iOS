@@ -13,12 +13,16 @@ class ViewController: UIViewController {
     let logo: GridLogo
     
     required init?(coder aDecoder: NSCoder) {
-        let screenSize: CGRect = UIScreen.mainScreen().bounds
-        let mystic = screenSize.height/4
-        
-        logo = GridLogo(mystic: mystic, duration: 30, lineWidth: 1, bgColor: UIColor.grayColor(), fgColor: UIColor.whiteColor())
+        let size: CGFloat = 100
+        let duration: Double = 10
+        logo = GridLogo(size: size, duration: duration, lineWidth: 1, bgColor: UIColor.grayColor(), fgColor: UIColor.whiteColor(), lineJoin: kCALineJoinMiter)
         
         super.init(coder: aDecoder)
+        
+        let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(duration * Double(NSEC_PER_SEC)))
+        dispatch_after(dispatchTime, dispatch_get_main_queue(), {
+            self.logo.updateLineProperties(bgColor: UIColor.greenColor(), fgColor: UIColor.purpleColor(), lineJoin: kCALineJoinBevel)
+        })
     }
     
     override func viewDidLoad() {
@@ -36,7 +40,6 @@ class ViewController: UIViewController {
         logo.transform = CGAffineTransformMakeRotation(CGFloat(-45).degreesToRadians)
         
         view.addSubview(logo)
-        logo.show()
     }
 
     override func didReceiveMemoryWarning() {

@@ -8,18 +8,6 @@
 
 import UIKit
 
-extension CGSize {
-    func toInt() -> CGSize {
-        return CGSize(width: round(self.width), height: round(self.height))
-    }
-}
-
-extension CGPoint {
-    func toInt() -> CGPoint {
-        return CGPoint(x: round(self.x), y: round(self.y))
-    }
-}
-
 public class GridLogo: UIView {
     
     static let xstep = [1,0,-1,0]
@@ -30,26 +18,25 @@ public class GridLogo: UIView {
         lineJoin: String,
         lineWidth: CGFloat,
         turns: Int,
-        md: CGFloat
+        size: CGFloat
         ) -> CAShapeLayer {
             var curr = CGPointZero
             var last = CGPointZero
             var scalestep: CGFloat
             let path = UIBezierPath()
             path.moveToPoint(curr)
-        
             for i in 0 ..< turns {
-                scalestep = round((CGFloat(i) + 1) / 2.0) * CGFloat(md)
-                curr = CGPoint(x: CGFloat(last.x) + (scalestep * CGFloat(xstep[i % 4])), y: CGFloat(last.y) + (scalestep * CGFloat(ystep[i % 4]))).toInt()
+                scalestep = round((CGFloat(i) + 1) / 2.0) * CGFloat(size)
+                curr = CGPoint(x: CGFloat(last.x) + (scalestep * CGFloat(xstep[i % 4])), y: CGFloat(last.y) + (scalestep * CGFloat(ystep[i % 4])))
+                
                 
                 if i + 1 == turns {
-                    curr = CGPoint(x: CGFloat(curr.x) - (md * CGFloat(xstep[i % 4])), y: CGFloat(curr.y) - (md * CGFloat(ystep[i % 4]))).toInt()
+                    curr = CGPoint(x: CGFloat(curr.x) - (size * CGFloat(xstep[i % 4])), y: CGFloat(curr.y) - (size * CGFloat(ystep[i % 4])))
                 }
-                
+                print("curr: \(curr)")
                 path.addLineToPoint(curr)
                 last  = curr
             }
-            
             let shapeLayer = CAShapeLayer()
             shapeLayer.path = path.CGPath
             shapeLayer.strokeColor = strokeColor.CGColor
@@ -59,7 +46,7 @@ public class GridLogo: UIView {
             return shapeLayer
     }
     
-    static func setupAnimation(duration: CFTimeInterval, repeatCount: Float) -> CAAnimationGroup {
+    static func getCAAnimationGroup(duration: CFTimeInterval, repeatCount: Float) -> CAAnimationGroup {
         
         let pathAnimationIn = CABasicAnimation(keyPath: "strokeEnd")
         let pathAnimationOut = CABasicAnimation(keyPath: "strokeStart")
@@ -70,13 +57,13 @@ public class GridLogo: UIView {
         pathAnimationIn.fromValue = startPos
         pathAnimationIn.toValue = endPos
         pathAnimationIn.duration = duration / 2
-        pathAnimationIn.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        pathAnimationIn.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         
         pathAnimationOut.fromValue = startPos
         pathAnimationOut.toValue = endPos
         pathAnimationOut.duration = duration / 2
         pathAnimationOut.beginTime = duration / 2
-        pathAnimationOut.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        pathAnimationOut.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         
         pathAnimationGroup.animations = [pathAnimationIn, pathAnimationOut]
         pathAnimationGroup.duration = duration
@@ -87,16 +74,12 @@ public class GridLogo: UIView {
         return pathAnimationGroup
     }
     
-    private var mystic: CGFloat = 4
-    private var turns: Int
-    private var md: CGFloat
-    private var bgLayer: CAShapeLayer
-    private var fgLayer: CAShapeLayer
-    private let pathAnimationGroup: CAAnimationGroup
-    private var duration: CFTimeInterval
-    private var reverses = false
+    private var turns: Int = 9
+    private var size: CGFloat
+    private var reverses: Bool
     private var lineWidth: CGFloat
-    private let fadeDuration = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
+    private var bgLayer: CAShapeLayer? = .None
+    private let fgLayer: CAShapeLayer
     
     let fadeInAnimation: CABasicAnimation = {
         let animation = CABasicAnimation(keyPath: "opacity")
@@ -115,64 +98,42 @@ public class GridLogo: UIView {
     }()
     
     public init(
-        mystic m: CGFloat,
-        duration d: CFTimeInterval,
+        size s: CGFloat,
+        duration: CFTimeInterval,
         lineWidth lw: CGFloat = 1,
         bgColor: UIColor = UIColor(red: 51/255, green: 51/255, blue: 48/255, alpha: 1),
         fgColor: UIColor = UIColor(red: 1, green: 246/255, blue: 153/255, alpha: 1),
         lineJoin: String = kCALineJoinMiter,
-        turns t: Int = 9,
-        repeatCount: Float = 14
+        repeatCount: Float = 14.5,
+        showBackground: Bool = true
         )
     {
-        mystic = m
-        duration = d
         lineWidth = lw
-        md = m
-        turns = t
-        bgLayer = GridLogo.shapeLayerWithLogoPath(bgColor, lineJoin: lineJoin, lineWidth: lineWidth, turns: turns, md: md)
-        fgLayer = GridLogo.shapeLayerWithLogoPath(fgColor, lineJoin: lineJoin, lineWidth: lineWidth, turns: turns, md: md)
-        pathAnimationGroup = GridLogo.setupAnimation(duration, repeatCount: repeatCount)
-        
+        size = s/4
+        reverses = false
+        fgLayer = GridLogo.shapeLayerWithLogoPath(fgColor, lineJoin: lineJoin, lineWidth: lineWidth, turns: turns, size: size)
+        let pathAnimationGroup = GridLogo.getCAAnimationGroup(duration, repeatCount: repeatCount)
+        fgLayer.addAnimation(pathAnimationGroup, forKey: "group")
         super.init(frame: CGRectZero)
         
-        layer.addSublayer(bgLayer)
-        layer.addSublayer(fgLayer)
         userInteractionEnabled = false
+        layer.addSublayer(fgLayer)
         
+        if showBackground {
+            bgLayer = GridLogo.shapeLayerWithLogoPath(bgColor, lineJoin: lineJoin, lineWidth: lineWidth, turns: turns, size: size)
+        }
+        guard let bgLayer = bgLayer else { return }
+        layer.insertSublayer(bgLayer, atIndex: 0)
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func updateLineColors(bgColor: UIColor, fgColor: UIColor, lineJoin: String = kCALineJoinMiter) {
-        bgLayer = GridLogo.shapeLayerWithLogoPath(bgColor, lineJoin: lineJoin, lineWidth: lineWidth, turns: turns, md: md)
-        fgLayer = GridLogo.shapeLayerWithLogoPath(fgColor, lineJoin: lineJoin, lineWidth: lineWidth, turns: turns, md: md)
-    }
-    
-    
-    public func show() {
-        startAnimation()
-        fgLayer.opacity = 1
-        bgLayer.opacity = 1
-        fgLayer.addAnimation(fadeInAnimation, forKey: "fade")
-        bgLayer.addAnimation(fadeInAnimation, forKey: "fade")
-    }
-    
-    public func hide() {
-        fgLayer.opacity = 0
-        bgLayer.opacity = 0
-        fgLayer.addAnimation(fadeOutAnimation, forKey: "fade")
-        bgLayer.addAnimation(fadeOutAnimation, forKey: "fade")
-    }
-    
-    func startAnimation() {
-        fgLayer.removeAllAnimations()
-        fgLayer.addAnimation(pathAnimationGroup, forKey: "group")
-    }
-    
-    func endAnimation() {
-        fgLayer.removeAllAnimations()
+    public func updateLineProperties(bgColor bgColor: UIColor, fgColor: UIColor, lineJoin: String = kCALineJoinMiter) {
+        bgLayer?.strokeColor = bgColor.CGColor
+        bgLayer?.lineJoin = lineJoin
+        fgLayer.strokeColor = fgColor.CGColor
+        fgLayer.lineJoin = lineJoin
     }
 }
