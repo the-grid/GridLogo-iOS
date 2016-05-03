@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Rituwall, Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for GridLogo.
 FOUNDATION_EXPORT double GridLogoVersionNumber;
