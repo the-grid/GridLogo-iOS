@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "GridSwiftLogo"
-  s.version      = "3.0.4"
+  s.version      = "3.0.5"
   s.summary      = "An animated Grid Logo helper."
   s.homepage     = "https://github.com/the-grid/GridAPISwiftClient"
   s.license     = { :type => "MIT" }
@@ -9,6 +9,6 @@ Pod::Spec.new do |s|
   s.platform     = :ios
   s.platform     = :ios, "8.0"
   s.source       = { :git => "https://github.com/the-grid/GridSwiftLogo.git", :tag => "#{s.version}" }
-  s.source_files  = "Classes", "APIClient/**/*.swift"
+  s.source_files  = "Classes", "GridLogo/**/*.swift"
   s.requires_arc = true
 end

@@ -26,7 +26,6 @@ fi
 
 if [ "$MODE" = "main" ]; then
     echo "Verifying iOS main project build."
-    pod repo update && pod install
 
     set -o pipefail && xcodebuild \
         -workspace "GridLogo.xcworkspace" \
