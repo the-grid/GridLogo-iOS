@@ -28,7 +28,7 @@ if [ "$MODE" = "main" ]; then
     echo "Verifying iOS main project build."
 
     set -o pipefail && xcodebuild \
-        -workspace "GridLogo.xcworkspace" \
+        -workspace "GridLogo.xcodeproj" \
         -scheme "GridLogo" \
         -sdk "$SDK" \
         -destination "$PLATFORM" \
