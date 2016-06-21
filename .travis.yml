@@ -1,0 +1,21 @@
+language: objective-c
+osx_image: xcode7.3
+git:
+  depth: 10
+before_install:
+  - brew update
+  - brew outdated xctool || brew upgrade xctool
+  - brew outdated carthage || brew upgrade carthage
+  - gem install cocoapods
+  - gem install xcpretty
+  - gem install xcpretty-travis-formatter
+install: echo "Here we go!"
+script: ./scripts/build.sh main
+
+#after_success:
+#
+
+# whitelist
+# branches:
+#   only:
+#     - master
