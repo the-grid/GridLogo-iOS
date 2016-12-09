@@ -15,29 +15,28 @@ class ViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         let size: CGFloat = 100
         let duration: Double = 10
-        logo = GridLogo(size: size, duration: duration, lineWidth: 1, bgColor: UIColor.grayColor(), fgColor: UIColor.whiteColor(), lineJoin: kCALineJoinMiter)
+        logo = GridLogo(size: size, duration: duration, lineWidth: 1, bgColor: UIColor.gray, fgColor: UIColor.white, lineJoin: kCALineJoinMiter)
         
         super.init(coder: aDecoder)
         
-        let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(duration * Double(NSEC_PER_SEC)))
-        dispatch_after(dispatchTime, dispatch_get_main_queue(), {
-            self.logo.updateLineProperties(bgColor: UIColor.greenColor(), fgColor: UIColor.purpleColor(), lineJoin: kCALineJoinBevel)
+        let dispatchTime: DispatchTime = DispatchTime.now() + Double(Int64(duration * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: {
+            self.logo.updateLineProperties(bgColor: UIColor.green, fgColor: UIColor.purple, lineJoin: kCALineJoinBevel)
         })
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.blackColor()
+        view.backgroundColor = UIColor.black
         
-        let screenSize: CGRect = UIScreen.mainScreen().bounds
+        let screenSize: CGRect = UIScreen.main.bounds
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
-        
-        logo.frame.offsetInPlace(dx: screenWidth/2, dy: screenHeight/2)
+
         logo.frame.origin.x = screenWidth/2
         logo.frame.origin.y = screenHeight/2
-        logo.transform = CGAffineTransformMakeRotation(CGFloat(-45).degreesToRadians)
+        logo.transform = CGAffineTransform(rotationAngle: CGFloat(-45).degreesToRadians)
         
         view.addSubview(logo)
     }
@@ -47,11 +46,11 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        coordinator.animateAlongsideTransition({ context in
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { context in
             self.logo.frame.origin.x = size.width/2
             self.logo.frame.origin.y = size.height/2
-            }, completion: .None)
+            }, completion: .none)
     }
 }
 

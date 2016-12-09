@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "GridSwiftLogo"
-  s.version      = "3.0.7"
+  s.version      = "4.0.0"
   s.summary      = "An animated Grid Logo helper."
   s.homepage     = "https://github.com/the-grid/GridSwiftLogo"
   s.license     = { :type => "MIT" }
